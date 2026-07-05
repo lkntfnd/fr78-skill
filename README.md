@@ -1,6 +1,6 @@
 # Agentic Dev Loop
 
-**A Claude Code skill that turns Claude into a self-directed engineering team — planning, implementing, testing, reviewing, and documenting its way through a roadmap, milestone by milestone, with built-in brakes.**
+**A Claude Code skill that turns Claude into a self-directed engineering team - planning, implementing, testing, reviewing, and documenting its way through a roadmap, milestone by milestone, with built-in brakes.**
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg) ![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-d97757.svg) ![Docs as State](https://img.shields.io/badge/state-docs%20%2B%20git-success.svg)
 
@@ -46,19 +46,9 @@ flowchart LR
 | `EXECUTION_LOG.md` | Process journal — decisions, blockers, gate results per task |
 | `KNOWN_ISSUES.md` | Open problems, accepted debt, deliberate deferrals |
 
-## Installation
-
-Copy **both** skill folders into your skills directory (they work as a pair):
-
-```
-.claude/skills/                 # per-project  — or —  ~/.claude/skills/  # all projects
-├── agentic-dev-loop/
-└── init-agentic-loop/
-```
-
 ## Usage
 
-Just ask for autonomous work — the skill triggers on phrases like:
+Just ask for autonomous work - the skill triggers on phrases like:
 
 > *"work through the roadmap"* · *"build this autonomously"* · *"keep going until it's done"* · *"act as the dev team on this"*
 
@@ -91,23 +81,6 @@ flowchart TD
     O --> R["Reviewer<br/><i>diff-only audit: security · perf · architecture · UX</i>"]
     T -. tests must pass .-> I
     R -. flags issues for fix pass .-> I
-```
-
-## Repository layout
-
-```
-agentic-dev-loop/
-├── SKILL.md                    # the loop: selection, cycle, stop conditions, subagents
-├── references/                 # loaded on demand
-│   ├── init-project.md         # inspection + interview + doc synthesis
-│   ├── quality-gates.md        # definition of "done"
-│   ├── architecture-checklist.md
-│   ├── security-checklist.md
-│   ├── performance-checklist.md
-│   └── frontend-ux.md
-└── assets/doc-templates/       # the seven project docs
-init-agentic-loop/
-└── SKILL.md                    # /init-agentic-loop slash command
 ```
 
 ## License
