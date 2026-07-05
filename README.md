@@ -4,7 +4,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg) ![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-d97757.svg) ![Docs as State](https://img.shields.io/badge/state-docs%20%2B%20git-success.svg)
 
-The loop is stateless by design: all project state lives in seven markdown docs and git history, so any session — including one that lost its context — resumes exactly where the last one stopped.
+The loop is stateless by design: all project state lives in seven markdown docs and git history, so any session - including one that lost its context - resumes exactly where the last one stopped.
 
 ## How it works
 
@@ -23,7 +23,7 @@ flowchart LR
 
 *(Not a git repo? The loop stops and offers `git init` before anything else — per-task commits are its rollback mechanism.)*
 
-Every task runs the same gated cycle — one task, one commit, one rewind point:
+Every task runs the same gated cycle - one task, one commit, one rewind point:
 
 ```mermaid
 flowchart LR
@@ -38,12 +38,12 @@ flowchart LR
 
 | Doc | Role |
 |---|---|
-| `ROADMAP.md` | Global target — 2–5 outcome-based milestones with verifiable exit criteria, executed in order |
-| `TODO.md` | Working surface — milestones decomposed into single-sitting tasks just-in-time |
-| `ARCHITECTURE.md` | Recorded architecture decisions — made once, never re-litigated mid-loop |
+| `ROADMAP.md` | Global target - 2–5 outcome-based milestones with verifiable exit criteria, executed in order |
+| `TODO.md` | Working surface - milestones decomposed into single-sitting tasks just-in-time |
+| `ARCHITECTURE.md` | Recorded architecture decisions - made once, never re-litigated mid-loop |
 | `API.md` | Endpoint reference, updated whenever an API surface changes |
 | `CHANGELOG.md` | Clean, user-facing record of what shipped |
-| `EXECUTION_LOG.md` | Process journal — decisions, blockers, gate results per task |
+| `EXECUTION_LOG.md` | Process journal - decisions, blockers, gate results per task |
 | `KNOWN_ISSUES.md` | Open problems, accepted debt, deliberate deferrals |
 
 ## Usage
@@ -52,20 +52,20 @@ flowchart LR
 
 | Command | Purpose |
 |---|---|
-| `/agentic-dev-loop` | Explicitly start — or resume — the loop on the current project |
+| `/agentic-dev-loop` | Explicitly start - or resume - the loop on the current project |
 | `/init-agentic-loop` | (Re)initialize the seven project docs only: presents the init summary, then stops **without** starting the loop |
 
 ### Natural-language triggers
 
-No command needed — the loop also starts automatically on phrases like:
+No command needed - the loop also starts automatically on phrases like:
 
 > *"work through the roadmap"* · *"build this autonomously"* · *"keep going until it's done"* · *"act as the dev team on this"* · *"run the agentic loop"*
 
-It also engages when a project lacks the seven docs and you ask for ongoing autonomous work — initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
+It also engages when a project lacks the seven docs and you ask for ongoing autonomous work - initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way - corrections are proposed, never silently applied.
 
-Branch strategy is also decided at init: commit directly to the current branch, or work on a dedicated agent branch merged back at each milestone (recommended when a remote or CI watches main). Either way the loop **commits but never pushes** — publishing stays in your hands.
+Branch strategy is also decided at init: commit directly to the current branch, or work on a dedicated agent branch merged back at each milestone (recommended when a remote or CI watches main). Either way the loop **commits but never pushes** - publishing stays in your hands.
 
-It deliberately does **not** trigger for a single small isolated fix you want done directly — just ask for that normally.
+It deliberately does **not** trigger for a single small isolated fix you want done directly - just ask for that normally.
 
 ## Built-in brakes
 
@@ -74,8 +74,8 @@ Autonomy without a circuit breaker just means failures compound silently. The lo
 - the same task fails its quality gates **3×** with genuinely different approaches
 - a decision has **no clearly better option** (auth provider, breaking API change, irreversible migration)
 - it detects **thrashing** (undo/redo of the same change)
-- a **milestone completes** — summary posted; pauses if the next milestone raises a user-intent question or you asked for check-ins
-- the requested **scope is done** — it never invents work to keep looping
+- a **milestone completes** - summary posted; pauses if the next milestone raises a user-intent question or you asked for check-ins
+- the requested **scope is done** - it never invents work to keep looping
 
 ## Subagent role separation
 
