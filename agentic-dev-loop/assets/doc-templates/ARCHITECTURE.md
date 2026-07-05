@@ -7,6 +7,7 @@ One paragraph: what this system is, and the shape of its major pieces.
 | Decision | Reasoning | Alternatives considered | Date |
 |---|---|---|---|
 | e.g. Postgres over Mongo | relational integrity for X | Mongo, DynamoDB | YYYY-MM-DD |
+| e.g. Branch strategy: dedicated `agent/<milestone>` branch, merged per milestone | remote + CI watch main | direct-to-current-branch | YYYY-MM-DD |
 
 ## Diagram
 ```mermaid

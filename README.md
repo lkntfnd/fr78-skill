@@ -63,6 +63,8 @@ No command needed — the loop also starts automatically on phrases like:
 
 It also engages when a project lacks the seven docs and you ask for ongoing autonomous work — initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
 
+Branch strategy is also decided at init: commit directly to the current branch, or work on a dedicated agent branch merged back at each milestone (recommended when a remote or CI watches main). Either way the loop **commits but never pushes** — publishing stays in your hands.
+
 It deliberately does **not** trigger for a single small isolated fix you want done directly — just ask for that normally.
 
 ## Built-in brakes
