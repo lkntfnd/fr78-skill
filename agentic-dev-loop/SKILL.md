@@ -19,7 +19,7 @@ This is a **loop with brakes**, not a loop with no brakes. Read "Stop conditions
 
 1. `git status` and `git log --oneline -10` — know what state the repo is actually in. Never trust memory of a prior session over the actual repo. If the directory is not a git repository, stop and ask the user whether to `git init` — do not run the loop without version control, since per-task commits are the rollback mechanism. If the repo exists but has no commits yet, don't error — and don't assume it's empty either: classify empty vs. existing by what's actually in the working tree, not by commit count (init-project.md handles this).
 2. Read `ROADMAP.md`, `TODO.md`, `KNOWN_ISSUES.md` if they exist — these are the source of truth for what's left, not this conversation's history. When resuming mid-project, also skim the recent entries of `EXECUTION_LOG.md` for decision history: prior approach attempts (the 3-attempt rule in §4 counts across sessions) and blockers already hit.
-3. If these docs don't exist yet, run the full init procedure in `references/init-project.md` before touching any code — it inspects the repo, resolves real architecture decisions (including the UI-motion approach — Spline 3D vs scroll animation — if the project has marketing/landing UI in scope; see the init procedure), and gets straight into the first task. Do not skip straight to coding on a repo that's never been through this.
+3. If these docs don't exist yet, run the full init procedure in `references/init-project.md` before touching any code — it inspects the repo, resolves real architecture decisions, and gets straight into the first task. Do not skip straight to coding on a repo that's never been through this.
 4. The same init procedure is also available on demand as `/init-agentic-loop` — a sibling skill (`init-agentic-loop/`, install alongside this one under `.claude/skills/`) that's invoked explicitly by its slash command rather than auto-triggering, for when the user wants to (re)initialize without necessarily continuing into the loop right after.
 
 ## 1. Mindset (carries through every task)
@@ -44,7 +44,7 @@ This is a **loop with brakes**, not a loop with no brakes. Read "Stop conditions
 
 1. **Review state** — re-read the current step's section in TODO.md and ARCHITECTURE.md; confirm the task is still correctly scoped.
 2. **Design** — write a short plan (in your response, not necessarily a file): what changes, which files, which existing abstractions get reused, what could break.
-3. **Implement** — smallest safe change that fully satisfies the task. Respect existing folder structure and patterns (see `references/architecture-checklist.md`). If the task is building user-facing web UI, follow `references/frontend-ux.md` for scroll motion, imagery/SVG, and the Spline decision recorded in ARCHITECTURE.md.
+3. **Implement** — smallest safe change that fully satisfies the task. Respect existing folder structure and patterns (see `references/architecture-checklist.md`). If the task is building user-facing web UI, follow `references/frontend-ux.md` for motion, imagery/SVG, states, and accessibility standards.
 4. **Build** — run the project's actual build command. Never assume it passed.
 5. **Lint** — run the project's actual lint command.
 6. **Types** — run typecheck if the stack has one.
@@ -64,7 +64,7 @@ A task is not "done" until every box in `references/quality-gates.md` is checked
 Keep momentum, but momentum is not the same as never stopping. Stop and report to the user (don't just keep trying silently) when:
 
 - The **same task** has failed its quality gates **3 times** with genuinely different approaches attempted. At that point: explain what was tried, log it in EXECUTION_LOG.md, propose 2-3 remaining options with tradeoffs, and wait rather than trying a 4th silently.
-- A change would require a **decision with no clearly-better option** the user hasn't specified (e.g., choice of auth provider, breaking API contract change, irreversible data migration, or a UI-architecture fork like Spline-vs-scroll-animation that wasn't already settled in ARCHITECTURE.md during init). Ask — don't guess and don't loop past it.
+- A change would require a **decision with no clearly-better option** the user hasn't specified (e.g., choice of auth provider, breaking API contract change, irreversible data migration, or an architecture fork that wasn't already settled in ARCHITECTURE.md during init). Ask — don't guess and don't loop past it.
 - Every ROADMAP.md step is DONE, or you've completed the scope the user actually asked for (a loop "until the roadmap is complete" only applies to a project the user actually framed as open-ended — for a single requested feature, stop when that feature is done).
 - You detect the fix pattern in step 8 is thrashing (undoing then redoing the same change) — that's a signal to stop and re-plan at a higher level, not push through.
 - A **milestone** (ROADMAP.md step) completes. Post a short summary — what shipped, what's next per ROADMAP.md — and continue by default. But pause there if the user asked for check-ins as you go, or if decomposing the next milestone surfaces a judgment call about the *user's* intent (not implementation detail). A milestone boundary is the cheapest point to catch direction drift.
@@ -95,12 +95,12 @@ If subagents aren't available or the task is small, do all roles yourself but ex
 
 Load these as needed rather than holding them all in context up front:
 
-- `references/init-project.md` — repo inspection + interview procedure, including the Spline 3D architecture decision, for a project that hasn't used this skill yet. See §0.
+- `references/init-project.md` — repo inspection + interview procedure for a project that hasn't used this skill yet. See §0.
 - `references/quality-gates.md` — the definition of "done," expanded.
 - `references/architecture-checklist.md` — separation of concerns, anti-patterns to avoid.
 - `references/security-checklist.md` — what to check before marking a task done.
 - `references/performance-checklist.md` — same, for performance.
-- `references/frontend-ux.md` — UI standards: states/accessibility/performance, plus the Spline-vs-scroll-animation decision and how to execute each.
+- `references/frontend-ux.md` — UI standards: states, accessibility, performance, and scroll-based motion for marketing/landing surfaces.
 - `assets/doc-templates/` — starting templates for ROADMAP.md, TODO.md, ARCHITECTURE.md, API.md, CHANGELOG.md, EXECUTION_LOG.md, KNOWN_ISSUES.md. Copy into the project root on first use; don't overwrite existing ones with real content.
 - The sibling `init-agentic-loop/` skill — provides the `/init-agentic-loop` explicit slash command, installed alongside this skill. It just runs `references/init-project.md` on demand; it isn't a separate procedure.
 

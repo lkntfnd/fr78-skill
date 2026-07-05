@@ -9,23 +9,19 @@ The loop is stateless by design: all project state lives in seven markdown docs 
 ## How it works
 
 ```mermaid
-flowchart TD
-    A([Invocation]) --> B{Git repo?}
-    B -- no --> B1[Stop — offer git init]
-    B -- yes --> C{Project docs exist?}
-    C -- no --> D["Init: inspect repo → interview →<br/>7 docs + reviewed roadmap → docs-only commit"]
-    C -- yes --> E[Read ROADMAP · TODO · KNOWN_ISSUES]
-    D --> E
-    E --> F[Pick first non-DONE milestone]
-    F --> G[Decompose into tasks<br/>just-in-time]
-    G --> H[[Per-task cycle]]
-    H --> I{Milestone<br/>complete?}
-    I -- no --> H
-    I -- yes --> J[Post milestone summary]
-    J --> K{Roadmap<br/>complete?}
-    K -- no --> F
-    K -- yes --> L([Done — handoff-ready repo])
+flowchart LR
+    A([Start]) --> B{Docs<br/>exist?}
+    B -- no --> C["Init: inspect ·<br/>interview · 7 docs<br/>+ reviewed roadmap"]
+    B -- yes --> D["Read state from<br/>docs + git"]
+    C --> D
+    D --> E["Next<br/>milestone"]
+    E --> F[["Task cycle<br/>× N tasks"]]
+    F --> G["Milestone<br/>summary"]
+    G -- more milestones --> E
+    G -- roadmap done --> H([Handoff-ready<br/>repo])
 ```
+
+*(Not a git repo? The loop stops and offers `git init` before anything else — per-task commits are its rollback mechanism.)*
 
 Every task runs the same gated cycle — one task, one commit, one rewind point:
 
@@ -44,7 +40,7 @@ flowchart LR
 |---|---|
 | `ROADMAP.md` | Global target — 2–5 outcome-based milestones with verifiable exit criteria, executed in order |
 | `TODO.md` | Working surface — milestones decomposed into single-sitting tasks just-in-time |
-| `ARCHITECTURE.md` | Recorded decisions (including UI-motion: Spline 3D vs scroll animation) — never re-litigated mid-loop |
+| `ARCHITECTURE.md` | Recorded architecture decisions — made once, never re-litigated mid-loop |
 | `API.md` | Endpoint reference, updated whenever an API surface changes |
 | `CHANGELOG.md` | Clean, user-facing record of what shipped |
 | `EXECUTION_LOG.md` | Process journal — decisions, blockers, gate results per task |
@@ -66,7 +62,7 @@ Just ask for autonomous work — the skill triggers on phrases like:
 
 > *"work through the roadmap"* · *"build this autonomously"* · *"keep going until it's done"* · *"act as the dev team on this"*
 
-On a project without the docs, initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed by an independent subagent before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
+On a project without the docs, initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
 
 To (re)initialize the docs **without** starting the loop:
 

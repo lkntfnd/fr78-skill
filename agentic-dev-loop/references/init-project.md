@@ -2,7 +2,7 @@
 
 Run this before the first cycle of the main loop — and again on demand (via `/init-agentic-loop`) to re-initialize or refresh the docs later. Goal: end up with accurate ROADMAP.md, TODO.md, ARCHITECTURE.md, API.md, CHANGELOG.md, EXECUTION_LOG.md, KNOWN_ISSUES.md that reflect the *actual* repo and the user's *actual* intent — not templates filled with guesses.
 
-Init resolves the real unknowns (scope, and — if relevant — the Spline 3D decision) up front, then flows directly into the first task of the loop's first step (when invoked from the main loop — the /init-agentic-loop command stops at the summary instead; see Step 4). It only pauses on something genuinely still unresolved after Steps 1-2 — see Step 4.
+Init resolves the real unknowns (scope, architecture) up front, then flows directly into the first task of the loop's first step (when invoked from the main loop — the /init-agentic-loop command stops at the summary instead; see Step 4). It only pauses on something genuinely still unresolved after Steps 1-2 — see Step 4.
 
 ## Step 1 — Inspect before asking anything
 
@@ -32,9 +32,7 @@ Batch this into one message, not a drawn-out interrogation. Skip any question th
 - **Scope for v1 / current milestone**: what's must-have vs. nice-to-have vs. explicitly out of scope right now?
 - **Constraints**: any fixed tech choices, deployment target, compliance/regulatory requirements, timeline pressure that should affect prioritization?
 - **Definition of done**: what does "this milestone is complete" actually mean to the user — a specific demo, a deployed environment, passing a specific test suite?
-- **3D scenes (Spline)** — if the project includes any marketing/landing/narrative UI at all, this is a required architecture decision, not a default to assume either way: ask explicitly whether the project will use real Spline 3D scenes.
-  - If yes: ask the user to provide the actual scene export/embed (Spline URL or `.splinecode`/embed snippet) for each scene needed — never fabricate a placeholder Spline URL. Record the decision and the integration approach in ARCHITECTURE.md.
-  - If no: record in ARCHITECTURE.md that the project uses scroll-driven motion + real imagery/SVG per `references/frontend-ux.md` instead, so this doesn't get silently re-litigated mid-loop.
+- **Architecture & stack** — for a new project, or when inspection surfaced a genuinely open fork: does the user have a preferred framework, database, service shape, or deployment target? If they have no preference, propose one in Step 3's ARCHITECTURE.md as a decision flagged for their confirmation. Either way, what's decided gets recorded there so it isn't re-litigated mid-loop.
 - **Anything already flagged as broken or risky** that isn't obvious from the code (e.g., "the payments module is fragile, be careful there").
 
 Don't ask about things covered by SKILL.md's fixed defaults (priority order, quality gates, mindset) unless the user's context suggests a real exception (e.g., a frontend-only project makes the DB-first priority moot — note that rather than asking).
@@ -51,17 +49,17 @@ Copy `assets/doc-templates/*` into the project root (for any doc that already ex
   - **Review pass before presenting**: run one adversarial review of the draft roadmap against the four points above — as a dispatched reviewer subagent when available (give it only the inspection summary, the user's interview answers, and the draft — not your drafting reasoning), otherwise as an explicit separate self-review pass. Fold accepted critiques in before showing the user.
   - **If a ROADMAP.md with real content already exists**: review it against this same bar and against what inspection actually found. Propose corrections to the user (stale milestones, already-shipped work still listed as open, missing dependency ordering) rather than silently rewriting their roadmap — or silently executing a roadmap you can see is wrong.
 - **TODO.md**: create one placeholder section per ROADMAP.md milestone, in the same order, all `STATUS: NOT STARTED` — then immediately decompose only the *first* milestone into real, concrete, single-sitting tasks and flip it to `STATUS: IN PROGRESS` (in both TODO.md and ROADMAP.md, so the two docs never disagree about the active step). Do not decompose later milestones yet; that happens just-in-time when the loop reaches them. Also fold in any setup gaps found in Step 1 (no tests configured, no lint config, no CI) as early tasks under the first step if they block real work.
-- **ARCHITECTURE.md**: for existing code, document what's actually there (real folder structure, real patterns observed) — don't prescribe an idealized architecture that doesn't match reality. For a new project, propose one and flag it as a decision the user should confirm, not silently assume. Always include the Spline decision from Step 2 here as a recorded architecture decision, not just conversation history.
+- **ARCHITECTURE.md**: for existing code, document what's actually there (real folder structure, real patterns observed) — don't prescribe an idealized architecture that doesn't match reality. For a new project, propose one and flag it as a decision the user should confirm, not silently assume. Record the key decisions from Step 2 here as architecture decisions, not just conversation history — so they don't get silently re-litigated mid-loop.
 - **API.md**: document any existing endpoints found in Step 1. Empty/skeleton for a new project.
 - **CHANGELOG.md**: seed with one entry noting the init date and what was found/decided.
-- **EXECUTION_LOG.md**: seed with one entry documenting the init pass itself — what was inspected, what was asked, what was decided (including the Spline decision) — so the process record starts from init, not from the first task.
+- **EXECUTION_LOG.md**: seed with one entry documenting the init pass itself — what was inspected, what was asked, what was decided — so the process record starts from init, not from the first task.
 - **KNOWN_ISSUES.md**: seed with anything found in Step 1 (TODOs, failing tests, missing CI, fragile areas the user flagged).
 
 Once the docs are synthesized, commit them as a dedicated init commit (e.g., "docs: initialize project docs (agentic-dev-loop init)") before any code work begins — on an empty repo this is the repo's first commit, and either way it gives the loop a clean rewind point that predates all task commits. Stage only the docs init created or edited — never sweep the user's uncommitted files into this commit; pre-existing uncommitted code is handled per Step 1 (a separate, user-approved initial commit).
 
 ## Step 4 — Confirm only what's genuinely a major, unresolved decision
 
-Don't pause by default. The Spline decision and any other real architecture fork were already resolved in Step 2's interview — if they're settled, proceed straight into the first task of the loop's first step rather than stopping to ask again.
+Don't pause by default. Any real architecture fork was already resolved in Step 2's interview — if it's settled, proceed straight into the first task of the loop's first step rather than stopping to ask again.
 
 Pause and wait for the user only when something major is still genuinely unresolved after inspection + interview — most commonly: an architecture choice for a brand-new repo that the interview didn't pin down, a scope ambiguity where two fundamentally different implementations are equally valid, or proposed corrections to an existing ROADMAP.md (Step 3) that the user hasn't accepted or declined yet — never decompose the first milestone or start executing against a roadmap whose corrections are pending. In those cases, present the options and wait.
 

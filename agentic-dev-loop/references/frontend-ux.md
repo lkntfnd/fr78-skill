@@ -11,16 +11,9 @@ Applies whenever a task touches UI.
 - Check contrast ratios on new color combinations, not just "does it look fine on my screen."
 - Respect `prefers-reduced-motion` for anything beyond a subtle fade/transition.
 
-This skill aims for a polished, professional feel on genuinely user-facing marketing/narrative surfaces — but polish never overrides the core app UI's need for speed and clarity, and never becomes an excuse to skip the states/accessibility items above in favor of visual polish.
+This skill aims for a polished, professional feel on genuinely user-facing marketing/narrative surfaces — but polish never overrides the core app UI's need for speed and clarity, and never becomes an excuse to skip the states/accessibility items above.
 
-## 3D scenes (Spline) — architecture decision, not a default
-
-Whether a project uses real Spline 3D scenes is decided once, during init (`references/init-project.md`), and recorded in ARCHITECTURE.md. Never assume either way mid-loop:
-
-- **If the user is providing real Spline scenes**: they'll supply the scene export/embed (typically a published Spline URL, or a `.splinecode` file for `@splinetool/react-spline` / the `<spline-viewer>` web component). Only integrate scenes actually provided — never fabricate a Spline URL or fake an embed. Treat each scene as an asset with a real dependency: lazy-load it (it's typically heavy), always ship a static poster-image fallback for slow connections and for `prefers-reduced-motion`, and never let it block first paint of surrounding content.
-- **If no Spline scenes are provided**: don't approximate one with a fake iframe or placeholder — build the "modern, professional" feel with the scroll-animation approach below instead. This is the default path unless the user opted into Spline during init.
-
-## Scroll-based motion (default, when no Spline scene is in use)
+## Scroll-based motion (marketing/landing surfaces)
 
 For marketing/landing pages and other narrative surfaces, professional scroll-driven motion is the default look this skill aims for:
 
