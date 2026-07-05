@@ -1,6 +1,6 @@
 # Changelog
 
-Format: newest first. One entry per completed task, written when the task is marked Done.
+Format: newest first. One entry per completed task, written when the task is checked off in TODO.md.
 
 ## YYYY-MM-DD
 - **Added:** <what>

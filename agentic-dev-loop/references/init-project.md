@@ -1,6 +1,6 @@
 # Initializing a New Project
 
-Run this once per project, before the first cycle of the main loop. Goal: end up with accurate ROADMAP.md, TODO.md, ARCHITECTURE.md, API.md, CHANGELOG.md, EXECUTION_LOG.md, KNOWN_ISSUES.md that reflect the *actual* repo and the user's *actual* intent — not templates filled with guesses.
+Run this before the first cycle of the main loop — and again on demand (via `/init-agentic-loop`) to re-initialize or refresh the docs later. Goal: end up with accurate ROADMAP.md, TODO.md, ARCHITECTURE.md, API.md, CHANGELOG.md, EXECUTION_LOG.md, KNOWN_ISSUES.md that reflect the *actual* repo and the user's *actual* intent — not templates filled with guesses.
 
 Init resolves the real unknowns (scope, and — if relevant — the Spline 3D decision) up front, then flows directly into the first task of the loop's first step (when invoked from the main loop — the /init-agentic-loop command stops at the summary instead; see Step 4). It only pauses on something genuinely still unresolved after Steps 1-2 — see Step 4.
 
@@ -61,9 +61,9 @@ Once the docs are synthesized, commit them as a dedicated init commit (e.g., "do
 
 ## Step 4 — Confirm only what's genuinely a major, unresolved decision
 
-Don't pause by default. The Spline decision and any other real architecture fork were already resolved in Step 2's interview — if they're settled, proceed straight into the first task of Step 1 rather than stopping to ask again.
+Don't pause by default. The Spline decision and any other real architecture fork were already resolved in Step 2's interview — if they're settled, proceed straight into the first task of the loop's first step rather than stopping to ask again.
 
-Pause and wait for the user only when something major is still genuinely unresolved after inspection + interview — most commonly: an architecture choice for a brand-new repo that the interview didn't pin down, or a scope ambiguity where two fundamentally different implementations are equally valid. In that case, present the options and wait.
+Pause and wait for the user only when something major is still genuinely unresolved after inspection + interview — most commonly: an architecture choice for a brand-new repo that the interview didn't pin down, a scope ambiguity where two fundamentally different implementations are equally valid, or proposed corrections to an existing ROADMAP.md (Step 3) that the user hasn't accepted or declined yet — never decompose the first milestone or start executing against a roadmap whose corrections are pending. In those cases, present the options and wait.
 
 Otherwise: show a brief summary (milestones, first step's task breakdown, key decisions recorded) as you go, and begin executing — don't make the user say "go" for a decision that's already been made.
 

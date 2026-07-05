@@ -18,7 +18,7 @@ This is a **loop with brakes**, not a loop with no brakes. Read "Stop conditions
 ## 0. On invocation, always do this first
 
 1. `git status` and `git log --oneline -10` — know what state the repo is actually in. Never trust memory of a prior session over the actual repo. If the directory is not a git repository, stop and ask the user whether to `git init` — do not run the loop without version control, since per-task commits are the rollback mechanism. If the repo exists but has no commits yet, don't error — and don't assume it's empty either: classify empty vs. existing by what's actually in the working tree, not by commit count (init-project.md handles this).
-2. Read `ROADMAP.md`, `TODO.md`, `KNOWN_ISSUES.md` if they exist. These are the source of truth for what's left, not this conversation's history.
+2. Read `ROADMAP.md`, `TODO.md`, `KNOWN_ISSUES.md` if they exist — these are the source of truth for what's left, not this conversation's history. When resuming mid-project, also skim the recent entries of `EXECUTION_LOG.md` for decision history: prior approach attempts (the 3-attempt rule in §4 counts across sessions) and blockers already hit.
 3. If these docs don't exist yet, run the full init procedure in `references/init-project.md` before touching any code — it inspects the repo, resolves real architecture decisions (including the UI-motion approach — Spline 3D vs scroll animation — if the project has marketing/landing UI in scope; see the init procedure), and gets straight into the first task. Do not skip straight to coding on a repo that's never been through this.
 4. The same init procedure is also available on demand as `/init-agentic-loop` — a sibling skill (`init-agentic-loop/`, install alongside this one under `.claude/skills/`) that's invoked explicitly by its slash command rather than auto-triggering, for when the user wants to (re)initialize without necessarily continuing into the loop right after.
 
@@ -83,11 +83,11 @@ Keep momentum, but momentum is not the same as never stopping. Stop and report t
 
 For nontrivial tasks, don't do planning/implementing/reviewing all in one undifferentiated pass — dispatch subagents so the reviewer isn't grading its own work:
 
-- **Implementer** subagent: does steps 3-6 and 8-9 for one task. When a Test-writer is used (complex logic), the implementer does not write the new-behavior tests — the implementation must pass the Test-writer's tests. When no Test-writer is used (simple tasks), the implementer writes tests per `references/quality-gates.md` — it covers step 7 itself.
-- **Reviewer** subagent: executes step 10. Given only the diff (not the implementer's reasoning), checks it against `references/security-checklist.md`, `references/performance-checklist.md`, and architecture conventions. Flags issues back for a fix pass before the task is marked done.
+- **Implementer** subagent: does steps 3-6 and 8-9 for one task, and always *runs* the full test suite (existing tests plus any Test-writer tests) as part of steps 7-8. When a Test-writer is used (complex logic), the implementer does not write the new-behavior tests — the implementation must pass the Test-writer's tests. When no Test-writer is used (simple tasks), the implementer also writes the tests per `references/quality-gates.md`.
+- **Reviewer** subagent: executes step 10. Given only the diff (not the implementer's reasoning), checks it against `references/security-checklist.md`, `references/performance-checklist.md`, architecture conventions, and `references/frontend-ux.md` when the task touched UI. Flags issues back for a fix pass before the task is marked done.
 - **Test-writer** subagent: covers step 7 for complex logic — writes tests independently from a spec of expected behavior rather than tests derived from reading the implementation line-by-line (avoids tests that just encode bugs as expected behavior).
 
-Steps 1-2 and 11-13 (state review, design, docs, commit, TODO bookkeeping) stay with you, the orchestrator.
+Steps 1-2 and 11-14 (state review, design, docs, commit, TODO bookkeeping, loop control) stay with you, the orchestrator.
 
 If subagents aren't available or the task is small, do all roles yourself but explicitly re-check your own work against the checklists as a separate pass rather than assuming implementation-time correctness.
 

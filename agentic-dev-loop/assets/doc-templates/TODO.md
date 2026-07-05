@@ -27,5 +27,5 @@ Once a step is picked up, replace its placeholder with real tasks, e.g.:
 - [ ] Implement login endpoint
 - [ ] BLOCKED: rate limiting on login — blocked on: which rate-limit store (in-memory vs Redis), see KNOWN_ISSUES.md
 
-When every task under a step is checked off, flip its STATUS to DONE and move to the next step.
+When every task under a step is checked off, flip its STATUS to DONE (here and in ROADMAP.md) and move to the next step.
 -->
