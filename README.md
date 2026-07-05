@@ -48,17 +48,22 @@ flowchart LR
 
 ## Usage
 
-Just ask for autonomous work - the skill triggers on phrases like:
+### Commands
 
-> *"work through the roadmap"* · *"build this autonomously"* · *"keep going until it's done"* · *"act as the dev team on this"*
+| Command | Purpose |
+|---|---|
+| `/agentic-dev-loop` | Explicitly start — or resume — the loop on the current project |
+| `/init-agentic-loop` | (Re)initialize the seven project docs only: presents the init summary, then stops **without** starting the loop |
 
-On a project without the docs, initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
+### Natural-language triggers
 
-To (re)initialize the docs **without** starting the loop:
+No command needed — the loop also starts automatically on phrases like:
 
-```
-/init-agentic-loop
-```
+> *"work through the roadmap"* · *"build this autonomously"* · *"keep going until it's done"* · *"act as the dev team on this"* · *"run the agentic loop"*
+
+It also engages when a project lacks the seven docs and you ask for ongoing autonomous work — initialization runs first: repo inspection **before** any questions, one batched interview for only the gaps, then a roadmap held to a PM-grade bar (outcome goals, verifiable exit criteria, dependency-ordered, riskiest unknown first) and adversarially reviewed (by an independent subagent when available) before you see it. An existing roadmap is audited the same way — corrections are proposed, never silently applied.
+
+It deliberately does **not** trigger for a single small isolated fix you want done directly — just ask for that normally.
 
 ## Built-in brakes
 
@@ -67,7 +72,7 @@ Autonomy without a circuit breaker just means failures compound silently. The lo
 - the same task fails its quality gates **3×** with genuinely different approaches
 - a decision has **no clearly better option** (auth provider, breaking API change, irreversible migration)
 - it detects **thrashing** (undo/redo of the same change)
-- a **milestone completes** — summary posted; pauses if the next milestone raises a user-intent question
+- a **milestone completes** — summary posted; pauses if the next milestone raises a user-intent question or you asked for check-ins
 - the requested **scope is done** — it never invents work to keep looping
 
 ## Subagent role separation
