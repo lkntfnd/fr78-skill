@@ -65,9 +65,8 @@ It also engages when a project lacks the seven docs and you ask for ongoing auto
 
 Branch strategy is also decided at init: commit directly to the current branch, or work on a dedicated agent branch merged back at each milestone (recommended when a remote or CI watches main). Either way the loop **commits but never pushes** - publishing stays in your hands.
 
-So is the continuation policy: when the roadmap completes, the loop either stops and proposes the next phase (default), or - in **continuous mode** - reviews the finished project like a PM, derives the next milestones from known issues, deferred scope, and the recorded product goal, and keeps going without asking.
+So is the continuation policy: when the roadmap completes, the loop either stops and proposes the next phase (default), or - in **continuous mode** - reviews the finished project like a PM, derives the next milestones from known issues, deferred scope, and the recorded product goal, and keeps going without asking (only if there is no decision tree in milestones).
 
-It deliberately does **not** trigger for a single small isolated fix you want done directly - just ask for that normally.
 
 ## Built-in brakes
 
