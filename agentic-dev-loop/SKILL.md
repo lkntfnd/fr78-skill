@@ -65,7 +65,7 @@ Keep momentum, but momentum is not the same as never stopping. Stop and report t
 
 - The **same task** has failed its quality gates **3 times** with genuinely different approaches attempted. At that point: explain what was tried, log it in EXECUTION_LOG.md, propose 2-3 remaining options with tradeoffs, and wait rather than trying a 4th silently.
 - A change would require a **decision with no clearly-better option** the user hasn't specified (e.g., choice of auth provider, breaking API contract change, irreversible data migration, or an architecture fork that wasn't already settled in ARCHITECTURE.md during init). Ask — don't guess and don't loop past it.
-- Every ROADMAP.md step is DONE, or you've completed the scope the user actually asked for (a loop "until the roadmap is complete" only applies to a project the user actually framed as open-ended — for a single requested feature, stop when that feature is done).
+- Every ROADMAP.md step is DONE, or you've completed the scope the user actually asked for (a loop "until the roadmap is complete" only applies to a project the user actually framed as open-ended — for a single requested feature, stop when that feature is done). When the whole roadmap is DONE, follow the continuation policy recorded in ARCHITECTURE.md during init: **stop-and-propose** (default) — post the completion summary plus a proposed next phase and wait; or **continuous** — plan the next phase yourself per §9 and keep going without asking.
 - You detect the fix pattern in step 8 is thrashing (undoing then redoing the same change) — that's a signal to stop and re-plan at a higher level, not push through.
 - A **milestone** (ROADMAP.md step) completes. Post a short summary — what shipped, what's next per ROADMAP.md — and continue by default; if ARCHITECTURE.md records a dedicated working branch, this is also where it merges back. But pause there if the user asked for check-ins as you go, or if decomposing the next milestone surfaces a judgment call about the *user's* intent (not implementation detail). A milestone boundary is the cheapest point to catch direction drift.
 
@@ -107,3 +107,13 @@ Load these as needed rather than holding them all in context up front:
 ## 8. Completion criteria
 
 Only claim the project is complete when: every ROADMAP.md step is DONE, TODO.md has no open tasks under any step, build/lint/tests/types all pass, CHANGELOG.md/EXECUTION_LOG.md/ARCHITECTURE.md/API.md/KNOWN_ISSUES.md are current, and the repo is in a state you'd hand to another engineer without a walkthrough.
+
+## 9. Extending the roadmap (next phase)
+
+When every ROADMAP.md step is DONE — or the user asks to "plan the next milestones" — the roadmap can be extended rather than the project treated as finished:
+
+1. Run the **extension mode** in `references/init-project.md`: a full-context PM review of the project as it now stands, deriving the next 2-5 milestones from recorded intent and observed reality, held to the same quality bar and adversarial review as the first roadmap.
+2. Append the new milestones to ROADMAP.md (`NOT STARTED`, DONE history intact) and add matching placeholder sections to TODO.md.
+3. In **continuous** mode, flow straight into §2 on the first new milestone. In **stop-and-propose** mode, present the proposed phase and wait.
+
+Never extend from thin air: every new milestone must trace to the recorded product goal, KNOWN_ISSUES.md, or an explicit user ask. A genuine product-direction fork (new user segment, monetization, a pivot) is a §4 ask even in continuous mode.

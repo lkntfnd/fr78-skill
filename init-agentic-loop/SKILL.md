@@ -12,4 +12,6 @@ Read and follow `../agentic-dev-loop/references/init-project.md` in full — rep
 
 This assumes `agentic-dev-loop` is installed as a sibling skill directory (both under the same `.claude/skills/` or `~/.claude/skills/`). If that relative path doesn't resolve, check both standard locations — project-level `.claude/skills/agentic-dev-loop/references/init-project.md` and user-level `~/.claude/skills/agentic-dev-loop/references/init-project.md` — and use whichever exists (the two skills may be installed at different scopes). Only if it's found in neither, tell the user the `agentic-dev-loop` skill needs to be installed alongside this one.
 
+On a project whose roadmap is already fully DONE, this command instead runs init-project.md's **extension mode**: review the finished project, derive the next phase's milestones, present them — and stop.
+
 Stop after presenting the summary per init-project.md Step 4 — don't continue into the main loop's task execution unless the user says to (this command is for initializing/re-initializing on demand, not for running the loop itself).

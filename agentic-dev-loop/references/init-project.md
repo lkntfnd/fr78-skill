@@ -34,6 +34,7 @@ Batch this into one message, not a drawn-out interrogation. Skip any question th
 - **Definition of done**: what does "this milestone is complete" actually mean to the user — a specific demo, a deployed environment, passing a specific test suite?
 - **Architecture & stack** — for a new project, or when inspection surfaced a genuinely open fork: does the user have a preferred framework, database, service shape, or deployment target? If they have no preference, propose one in Step 3's ARCHITECTURE.md as a decision flagged for their confirmation. Either way, what's decided gets recorded there so it isn't re-litigated mid-loop.
 - **Branch strategy** — where should the loop's per-task commits land: directly on the current branch, or on a dedicated working branch (e.g. `agent/<milestone>`) merged back at each milestone check-in? Recommend the dedicated branch whenever the repo has a remote or CI/CD watching the main branch — rejecting a whole run stays one command instead of unwinding dozens of commits; direct commits are fine for a solo/local project. Record the choice in ARCHITECTURE.md. Either way the loop never pushes — pushing stays a user action.
+- **Continuation policy** — when the roadmap completes, should the loop stop and propose the next phase (default), or scope the next phase itself and keep going (**continuous mode** — see "Extension mode" below and SKILL.md §9)? Recommend continuous mode only for projects the user frames as open-ended. Record the choice in ARCHITECTURE.md.
 - **Anything already flagged as broken or risky** that isn't obvious from the code (e.g., "the payments module is fragile, be careful there").
 
 Don't ask about things covered by SKILL.md's fixed defaults (priority order, quality gates, mindset) unless the user's context suggests a real exception (e.g., a frontend-only project makes the DB-first priority moot — note that rather than asking).
@@ -70,3 +71,13 @@ Otherwise: show a brief summary (milestones, first step's task breakdown, key de
 
 - **Via the `/init-agentic-loop` slash command**: stop after presenting the summary (milestones, first step's task breakdown, key decisions recorded). Do NOT begin task execution unless the user says to.
 - **From the main loop (agentic-dev-loop SKILL.md §0)**: proceed straight into the first task as described above.
+
+## Extension mode — planning the next phase
+
+Run this instead of the full init when the project's docs already exist and every ROADMAP.md step is DONE (or the user asks to plan the next milestones). No full interview — the finished project itself is now the interview:
+
+1. **Review like a PM with full context**: the recorded goal, users, and decisions in ARCHITECTURE.md; everything in KNOWN_ISSUES.md (open problems, accepted debt, deferred items — deferrals often name their own "what would trigger revisiting"); the CHANGELOG.md delta since the last phase; and the actual repo state (gaps between what the docs promise and what exists).
+2. **Derive 2-5 next milestones** from that evidence: unresolved issues worth promoting to milestones, deferred scope whose trigger has arrived, and the natural next increment toward the recorded product goal. Every milestone must trace to a recorded source — never invent scope orthogonal to the project's stated intent. A genuine product-direction fork (new user segment, monetization, a pivot) is a stop-and-ask even in continuous mode.
+3. **Hold them to the same bar as the first roadmap** — Step 3's quality criteria and the same adversarial review pass before finalizing.
+4. **Append, don't rewrite**: add the new milestones to ROADMAP.md as `NOT STARTED` below the DONE ones, add matching placeholder sections to TODO.md, and log the extension pass in EXECUTION_LOG.md (what was reviewed, what was derived, from which sources).
+5. Then follow the continuation policy recorded in ARCHITECTURE.md: **continuous** → decompose the first new milestone and keep the loop going; **stop-and-propose** (or invoked via `/init-agentic-loop`) → present the proposed phase and wait.

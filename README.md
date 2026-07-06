@@ -65,6 +65,8 @@ It also engages when a project lacks the seven docs and you ask for ongoing auto
 
 Branch strategy is also decided at init: commit directly to the current branch, or work on a dedicated agent branch merged back at each milestone (recommended when a remote or CI watches main). Either way the loop **commits but never pushes** - publishing stays in your hands.
 
+So is the continuation policy: when the roadmap completes, the loop either stops and proposes the next phase (default), or - in **continuous mode** - reviews the finished project like a PM, derives the next milestones from known issues, deferred scope, and the recorded product goal, and keeps going without asking.
+
 It deliberately does **not** trigger for a single small isolated fix you want done directly - just ask for that normally.
 
 ## Built-in brakes
@@ -75,7 +77,7 @@ Autonomy without a circuit breaker just means failures compound silently. The lo
 - a decision has **no clearly better option** (auth provider, breaking API change, irreversible migration)
 - it detects **thrashing** (undo/redo of the same change)
 - a **milestone completes** - summary posted; pauses if the next milestone raises a user-intent question or you asked for check-ins
-- the requested **scope is done** - it never invents work to keep looping
+- the requested **scope is done** - by default it stops and proposes a next phase; in **continuous mode** (chosen at init) it scopes the next phase itself and keeps going. Either way it never invents work from thin air: new milestones must trace to the recorded product goal, known issues, or deferred scope
 
 ## Subagent role separation
 
