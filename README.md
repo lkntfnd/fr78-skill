@@ -1,4 +1,5 @@
-# Agentic Dev Loop
+# Agentic Dev Loop 
+# [ SUGGESTING NOT TO USE CURRENT VERSION DUE TO LARGE AMOUNT OF TOKENS WASTED ON .MD FILES. WORKING ON BINARY CONVERSION.]
 
 **A Claude Code skill that turns Claude into a self-directed engineering team - planning, implementing, testing, reviewing, and documenting its way through a roadmap, milestone by milestone, with built-in brakes.**
 
