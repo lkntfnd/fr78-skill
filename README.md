@@ -1,5 +1,5 @@
 # Agentic Dev Loop 
-# [ SUGGESTING NOT TO USE CURRENT VERSION DUE TO LARGE AMOUNT OF TOKENS WASTED ON .MD FILES. WORKING ON BINARY CONVERSION.]
+# [ Current version documents everything in the .md files which is well structured for human readability but uses more tokens. Soon will push v with binary / chinese usage.]
 
 **A Claude Code skill that turns Claude into a self-directed engineering team - planning, implementing, testing, reviewing, and documenting its way through a roadmap, milestone by milestone, with built-in brakes.**
 
